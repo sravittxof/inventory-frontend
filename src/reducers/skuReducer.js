@@ -16,7 +16,7 @@ function skuReducer(
         case 'FETCH_SKUS':
             return {
                 ...state,
-                skus: action.skus,
+                skus: action.skus.data,
                 requesting: false,
             }
         
