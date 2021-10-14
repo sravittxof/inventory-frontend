@@ -16,7 +16,7 @@ function orderReducer(
         case 'FETCH_ORDERS':
             return {
                 ...state,
-                orders: action.orders,
+                orders: action.orders.data,
                 requesting: false,
             }
         

@@ -8,16 +8,16 @@ const CreateSku  = (props) => {
                     type="text"
                     name="name"
                     placeholder="Enter new Sku"
-                    value={props.sku.name}
+                    value={props.name}
                     onChange={props.handleChange}
                 />
                 <br></br>
                 <br></br>
                 <input
                     type="text"
-                    name="skuCode"
+                    name="sku_code"
                     placeholder="Enter New Sku Code"
-                    value={props.sku.skuCode}
+                    value={props.skuCode}
                     onChange={props.handleChange}
                 />
                 <br></br>
@@ -26,9 +26,11 @@ const CreateSku  = (props) => {
                     type="text"
                     name="description"
                     placeholder="Enter Sku Description"
-                    value={props.sku.description}
+                    value={props.description}
                     onChange={props.handleChange}
                 />
+                <br></br>
+                <br></br>
                 <input type="submit"/>
             </form>
         </div>

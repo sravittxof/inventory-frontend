@@ -7,22 +7,21 @@ import Sku from '../components/Sku.js'
 import {fetchSkus} from '../actions/skuActions'
 import {createSku} from '../actions/skuActions'
 import CreateSku from '../components/CreateSku.js'
-//import SkuMenu from "../components/SkuMenu.js";
+import SkuMenu from "../components/SkuMenu.js";
 import SkuIndex from "../components/SkuIndex.js";
 
 
 
 class SkuContainer extends React.Component{
     
-    constructor(props){
-        super(props)
-        this.state = {
-            skus: [],
+    state = {
             currentSku: {
-                name: ""
+                name: "",
+                sku_code: "",
+                description: ""
             }
         }
-    }
+    
 
     handleShowSku = (sku) => {
         this.props.history.push(`/skus/${sku.id}`)
@@ -30,7 +29,7 @@ class SkuContainer extends React.Component{
 
     handleOnChange = (event) => {
         this.setState({
-            ...this.state, currentSku: {[event.target.name]: event.target.value}
+            currentSku: {...this.state.currentSku, [event.target.name]: event.target.value}
         })
     }
 
@@ -40,7 +39,11 @@ class SkuContainer extends React.Component{
         //this.props.history.push(`/skus/${this.state.currentSku.name}`)
         this.setState({
             ...this.state,
-            currentSku: {name: ""}
+            currentSku: {
+                name: "",
+                skuCode: "",
+                description: ""
+            }
         })
     }
 
@@ -55,7 +58,7 @@ class SkuContainer extends React.Component{
         return (
         <div>
             <div>
-                {/* <SkuMenu url={this.props.match.url} /> */}
+                <SkuMenu url={this.props.match.url} />
             </div>
 
             <Switch>
@@ -100,7 +103,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        //addSku: (sku) => dispatch(addSku(sku)),
         createSku: (sku) => dispatch(createSku(sku)),
         fetchSkus: () => dispatch(fetchSkus())
     }

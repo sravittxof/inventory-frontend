@@ -10,15 +10,18 @@ import { createOrder, fetchOrders } from "../actions/orderActions";
 
 class OrderContainer extends React.Component{
 
-    state = {
-        orderType: "",
-        status: "",
+    state = { currentOrder: {
+        order_type: "",
+        order_status: "",
         items: "",
+        }
     }
     
     handleOnChange = (event) => {
         this.setState({
-            ...this.state, [event.target.name]: event.target.value
+            currentOrder: {
+            ...this.state.currentOrder, [event.target.name]: event.target.value
+            }
         })
     }
 
@@ -27,10 +30,11 @@ class OrderContainer extends React.Component{
         this.props.createOrder(this.state.currentOrder)
         //this.props.history.push(`/skus/${this.state.currentSku.name}`)
         this.setState({
-            ...this.state,
+            ...this.state, currentOrder: {
                 orderType: "",
                 status: "",
-                items: [],                
+                items: [],             
+            }   
         })
     }
     
@@ -41,7 +45,7 @@ class OrderContainer extends React.Component{
     render(){
 
         const orderTypes = ["", "Receive", "Ship"]
-        
+        console.log(this.props.store)
         return(
             <div>
                 <div>
@@ -54,7 +58,7 @@ class OrderContainer extends React.Component{
                         exact
                         path={`${this.props.match.path}/`}
                         render={routerProps => <OrderIndex {...routerProps} 
-                        orders={this.store.orders}
+                        orders={this.props.store.orders.orders}
                         /> }
                     />
 
@@ -62,8 +66,8 @@ class OrderContainer extends React.Component{
                         path={`${this.props.match.path}/create`}
                         render={routerProps => <CreateOrder 
                             {...routerProps}
-                            order={this.state}
-                            skus={this.store.skus}
+                            order={this.state.currentOrder}
+                            skus={this.props.store.skus.skus}
                             orderTypes={orderTypes}
                             handleChange={this.handleOnChange}
                             handleSubmit={this.handleSubmit}
@@ -78,11 +82,12 @@ class OrderContainer extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    return {
+/*     return {
         orders: state.orders,
         skus: state.skus,
         store: state
-    }
+    } */
+    return {store: state}
 }
 
 const mapDispatchToProps = (dispatch) => {
