@@ -2,7 +2,7 @@
 // import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
 import Home from './components/Home'
 import SkuContainer from './containers/SkuContainer'
 import OrderContainer from './containers/OrderContainer';

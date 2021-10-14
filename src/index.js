@@ -5,7 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from "redux";
-import { rootReducer } from './reducers/RootReducer';
+import thunk from "redux-thunk";
+import { rootReducer } from './reducers/rootReducer';
 import { BrowserRouter as Router } from "react-router-dom";
 
 const store = createStore(rootReducer, applyMiddleware(thunk))// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
