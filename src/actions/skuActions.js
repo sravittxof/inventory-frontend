@@ -13,7 +13,7 @@ export const fetchSkus = () => {
         dispatch({type: 'START_FETCHING_SKUS'});
         fetch("http://localhost:3000/skus", configObject)
         .then(r => r.json())
-        .then(data => dispatch({type: 'FETCH_SKUS', skus: data}))
+        .then(data => dispatch({type: 'FETCH_SKUS', skus: data.data}))
         .catch(anyErrors => console.log(anyErrors))
     }
 }
@@ -36,6 +36,10 @@ export const createSku = sku => {
         fetch("http://localhost:3000/skus", configObject)
         .then(response => response.json())
         .then((data) => 
-        dispatch({type: 'CREATE_SKU', sku: data}))
+        dispatch({type: 'CREATE_SKU', sku: data.data}))
     }
 }
+
+// export const redirectAfterCreate = () => {
+//     return {type: 'REDIRECT_AFTER_CREATE', redirectAfterCreate: false}
+// }

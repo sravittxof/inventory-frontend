@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Sku from '../components/Sku.js'
 import {fetchSkus} from '../actions/skuActions'
 import {createSku} from '../actions/skuActions'
+// import {redirectAfterCreate} from "../actions/skuActions"
 import CreateSku from '../components/CreateSku.js'
 import SkuMenu from "../components/SkuMenu.js";
 import SkuIndex from "../components/SkuIndex.js";
@@ -23,9 +24,11 @@ class SkuContainer extends React.Component{
         }
     
 
-    handleShowSku = (sku) => {
-        this.props.history.push(`/skus/${sku.id}`)
+    handleShowSku = () => {
+        this.props.history.push(`/skus/${this.props.id}`)
     }
+
+    // handleRedirectAfterCreate = () => this.props.history.push(`/skus/${this.props.store.skus.skus.last.id}`)
 
     handleOnChange = (event) => {
         this.setState({
@@ -54,7 +57,15 @@ class SkuContainer extends React.Component{
 
  
     render() {
-        console.log(this.props.store)
+        console.log(this.props)
+
+        // if(this.props.store.skus.redirectingAfterCreate && (this.props.location.pathname === '/skus/create')){
+        //     this.handleRedirectAfterCreate()
+        // } else if (this.props.store.skus.redirectingAfterCreate){
+        //      this.props.redirectAfterCreate()
+        // }
+        
+
         return (
         <div>
             <div>
@@ -104,7 +115,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         createSku: (sku) => dispatch(createSku(sku)),
-        fetchSkus: () => dispatch(fetchSkus())
+        fetchSkus: () => dispatch(fetchSkus()),
+        // redirectAfterCreate: () => dispatch(redirectAfterCreate())
     }
 }
 
