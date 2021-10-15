@@ -40,13 +40,13 @@ class SkuContainer extends React.Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.createSku(this.state.currentSku)
+        this.props.createSku(this.state.currentSku, this.props)
         this.setState({
             ...this.state,
             currentSku: {
                 name: "", sku_code: "", description: ""
             }
-        }, () => console.log(this.state))
+        })
     }
 
 
@@ -56,7 +56,7 @@ class SkuContainer extends React.Component{
 
  
     render() {
-        console.log(this.props)
+        //console.log(this.props)
 
         // if(this.props.store.skus.redirectingAfterCreate && (this.props.location.pathname === '/skus/create')){
         //     this.handleRedirectAfterCreate()
@@ -114,7 +114,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createSku: (sku) => dispatch(createSku(sku)),
+        createSku: (sku, skuActionProps) => dispatch(createSku(sku, skuActionProps)),
         fetchSkus: () => dispatch(fetchSkus()),
     }
 }

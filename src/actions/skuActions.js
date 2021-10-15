@@ -18,7 +18,7 @@ export const fetchSkus = () => {
     }
 }
 
-export const createSku = sku => {
+export const createSku = (sku, props) => {
     const configObject = {
         method: 'POST',
         headers: {
@@ -31,13 +31,18 @@ export const createSku = sku => {
         })
     }
 
+    let pendingDataFromFetch
+
     return (dispatch) => {
         dispatch({type: 'START_CREATING_SKU'});
         fetch("http://localhost:3000/skus", configObject)
         .then(response => response.json())
         .then(data => 
-            dispatch({type: 'CREATE_SKU', sku: data.data})
-        )
+            pendingDataFromFetch = data )
+        .then(somePromise =>
+            dispatch({type: 'CREATE_SKU', sku: pendingDataFromFetch.data}) )
+        .then(somePromise =>
+            props.history.push(`/skus/${pendingDataFromFetch.data.id}`) )
     }
 }
 
