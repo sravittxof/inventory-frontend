@@ -3,35 +3,38 @@ import {Switch,
     Route,
 } from "react-router-dom";
 import { connect } from "react-redux";
-// import OrderMenu from "../components/OrderMenu";
+import OrderMenu from "../components/OrderMenu";
 import OrderIndex from "../components/OrderIndex"
 import CreateOrder from "../components/CreateOrder"
 import { createOrder, fetchOrders } from "../actions/orderActions";
+import {fetchSkus} from "../actions/skuActions"
 
 class OrderContainer extends React.Component{
 
-    state = { currentOrder: {
-        order_type: "",
-        order_status: "",
-        items: "",
+    constructor(props){
+        super(props)
+        this.state = { currentOrder: {
+            order_type: "",
+            order_status: "",
+            items: [],
+            }
         }
-    }
+    }  
     
     handleOnChange = (event) => {
         this.setState({
             currentOrder: {
             ...this.state.currentOrder, [event.target.name]: event.target.value
             }
-        })
+        }, ()=> console.log(this.state))
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.createOrder(this.state.currentOrder)
-        //this.props.history.push(`/skus/${this.state.currentSku.name}`)
         this.setState({
             ...this.state, currentOrder: {
-                orderType: "",
+                order_type: "",
                 status: "",
                 items: [],             
             }   
@@ -40,6 +43,7 @@ class OrderContainer extends React.Component{
     
     componentDidMount(){
         this.props.fetchOrders()
+        this.props.fetchSkus()
     }
 
     render(){
@@ -49,7 +53,7 @@ class OrderContainer extends React.Component{
         return(
             <div>
                 <div>
-                    {/* <OrderMenu url={this.props.match.url}/> */}
+                    <OrderMenu url={this.props.match.url}/>
                 </div>
 
                 <Switch>
@@ -67,11 +71,11 @@ class OrderContainer extends React.Component{
                         render={routerProps => <CreateOrder 
                             {...routerProps}
                             order={this.state.currentOrder}
-                            skus={this.props.store.skus.skus}
+                            skus={this.props.skus}
                             orderTypes={orderTypes}
                             handleChange={this.handleOnChange}
                             handleSubmit={this.handleSubmit}
-                            redirectToShow={this.handleShoworder}
+                            //redirectToShow={this.handleShoworder}
                         />}
                     />
                 </Switch>
@@ -82,18 +86,19 @@ class OrderContainer extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-/*     return {
+     return {
         orders: state.orders,
-        skus: state.skus,
+        skus: state.skus.skus,
         store: state
-    } */
+    }
     return {store: state}
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: () => dispatch(fetchOrders()),
-        createOrder: (order) => dispatch(createOrder(order))
+        createOrder: (order) => dispatch(createOrder(order)),
+        fetchSkus: () => dispatch(fetchSkus())
     }
 }
 

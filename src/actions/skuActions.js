@@ -35,8 +35,9 @@ export const createSku = sku => {
         dispatch({type: 'START_CREATING_SKU'});
         fetch("http://localhost:3000/skus", configObject)
         .then(response => response.json())
-        .then((data) => 
-        dispatch({type: 'CREATE_SKU', sku: data.data}))
+        .then(data => 
+            dispatch({type: 'CREATE_SKU', sku: data.data})
+        )
     }
 }
 

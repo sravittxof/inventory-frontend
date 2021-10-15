@@ -15,14 +15,16 @@ import SkuIndex from "../components/SkuIndex.js";
 
 class SkuContainer extends React.Component{
     
-    state = {
+    constructor(props){
+        super(props)
+        this.state = {
             currentSku: {
                 name: "",
                 sku_code: "",
                 description: ""
             }
         }
-    
+    }
 
     handleShowSku = () => {
         this.props.history.push(`/skus/${this.props.id}`)
@@ -39,15 +41,12 @@ class SkuContainer extends React.Component{
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.createSku(this.state.currentSku)
-        //this.props.history.push(`/skus/${this.state.currentSku.name}`)
         this.setState({
             ...this.state,
             currentSku: {
-                name: "",
-                skuCode: "",
-                description: ""
+                name: "", sku_code: "", description: ""
             }
-        })
+        }, () => console.log(this.state))
     }
 
 
@@ -78,7 +77,7 @@ class SkuContainer extends React.Component{
                 exact
                 path={`${this.props.match.path}/`}
                 render={routerProps => <SkuIndex {...routerProps}
-                skus={this.props.store.skus.skus}
+                skus={this.props.skus}
                 //showSku={this.handleShowSku}
                 />}
             />
@@ -90,7 +89,7 @@ class SkuContainer extends React.Component{
                     sku={this.state.currentSku}
                     handleChange={this.handleOnChange}
                     handleSubmit={this.handleSubmit}
-                    redirectToShow={this.handleShowSku}
+                    //redirectToShow={this.handleShowSku}
                     />}
             />
 
@@ -98,7 +97,7 @@ class SkuContainer extends React.Component{
                 exact
                 path={`${this.props.match.path}/:id`}
                 render={routerProps => <Sku {...routerProps}
-                    sku={this.props.store.skus.skus.find(({id}) => id.toString() === routerProps.match.params.id)}
+                    sku={this.props.skus.find(({id}) => id.toString() === routerProps.match.params.id)}
                     />}
             />
             </Switch>
@@ -108,7 +107,8 @@ class SkuContainer extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        store: state
+        store: state,
+        skus: state.skus.skus,
     }
 }
 
@@ -116,7 +116,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createSku: (sku) => dispatch(createSku(sku)),
         fetchSkus: () => dispatch(fetchSkus()),
-        // redirectAfterCreate: () => dispatch(redirectAfterCreate())
     }
 }
 
