@@ -1,6 +1,8 @@
 
 const CreateOrder  = (props) => {
 
+    console.log(props)
+
     const renderSkusOrLots = () => {
         if (props.order.order_type === "Ship"){
             return(
@@ -12,17 +14,14 @@ const CreateOrder  = (props) => {
     }
 
     const skusMap = props.skus.map((sku, idx) => 
-        <div> 
+        <div key={idx}> 
             {sku.attributes.name}
-            <input type="checkbox" name="sku_id" value={sku.id} >
-            </input>
             <div>
-            <label>Order Quantity</label>
             <input
                 type="text"
-                name="quantity"
+                name={sku.id}
                 placeholder="Enter Order quantity"
-                value={props.order.quantity}
+                value={props.order.items.name}
                 onChange={props.handleChange}
             />
             </div>
@@ -37,26 +36,26 @@ const CreateOrder  = (props) => {
             {sku.relationships.lots.data.map((lot, idx) => 
                 <div key={idx}>
                     {lot.id}
-                <input key={idx} value={lot.id} name="lot_id" type="checkbox">
-                </input>
                     <div>
-                    <label>Order Quantity</label>
                     <input
                         type="text"
-                        name="quantity"
+                        name={lot.id}
                         placeholder="Enter Order quantity"
-                        value={props.order.quantity}
+                        value={props.order.items.name}
                         onChange={props.handleChange}
                     />
                     </div>
+                    <br></br>
                 </div>
             )}
+            <br></br>
+            <br></br>
         </div>
     )
 
 
     const orderTypeMap = props.order_types.map((order_type, idx) =>
-        <option value={order_type}>
+        <option key={idx} value={order_type}>
             {order_type}
         </option>
     )

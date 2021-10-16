@@ -16,18 +16,64 @@ class OrderContainer extends React.Component{
         this.state = { currentOrder: {
             order_type: "",
             order_status: "",
-            items: [],
+            items: {},
+            ////exampple items:[ {sku_id: 1, onOrder: true, quantity: 2}, {sku_id: 3, onOrder: true, quantity: 7} ]
             }
         }
     }  
     
     handleOnChange = (event) => {
-        this.setState({
-            currentOrder: {
-            ...this.state.currentOrder, [event.target.name]: event.target.value
-            }
-        }, ()=> console.log(this.event))
+        //console.log(event)
+        
+        //exiting, functioning setState
+        // this.setState({
+        //     currentOrder: {
+        //     ...this.state.currentOrder, [event.target.name]: event.target.value
+        //     }
+        // })
+        //begin testing setState
+        if(event.target.name === "order_type"){
+            this.setState({
+                currentOrder:{
+                ...this.state.currentOrder, [event.target.name]: event.target.value, items: {}
+                }
+            })
+        } else {
+            this.setState({
+                currentOrder: {
+                    ...this.state.currentOrder, items: {...this.state.currentOrder.items, [event.target.name]: event.target.value}
+                }
+            })
+        }   
     }
+
+    /*
+        if(event.target.name === "order_type"){
+            this.setState({
+                currentOrder:{
+                ...this.state.currentOrder, event.target.name: event.target.value, items: []
+                }
+            })
+        } else {
+            this.setState({
+                currentOrder: {
+                    ...this.state.currentOrder, items: {...this.state.currentOrder.items, event.target.name: event.target.value}
+                }
+            })
+        }
+
+        //items: { className: {name: {quantity: quantity}, name: {quantity: quantity}}, className: {name: {quantity: quantity}, name: {quantity: quantity}}   }
+        //{event.target.className.name :  }
+
+        items: {name: quantity, name: quantity }
+
+
+        this.setState({
+            currentOrder:{
+                ...this.state.currentOrder, 
+            }
+        })
+    */
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -47,9 +93,9 @@ class OrderContainer extends React.Component{
     }
 
     render(){
-
+        console.log(this.props)
+        
         const order_types = ["", "Receive", "Ship"]
-        console.log(this.props.store)
         return(
             <div>
                 <div>
@@ -98,7 +144,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: () => dispatch(fetchOrders()),
         createOrder: (order) => dispatch(createOrder(order)),
-        fetchSkus: () => dispatch(fetchSkus())
+        fetchSkus: () => dispatch(fetchSkus()),
+        //fetchLots: () => dispatch(fetchLots()),
     }
 }
 
