@@ -26,7 +26,7 @@ class OrderContainer extends React.Component{
             currentOrder: {
             ...this.state.currentOrder, [event.target.name]: event.target.value
             }
-        }, ()=> console.log(this.state))
+        }, ()=> console.log(this.event))
     }
 
     handleSubmit = (event) => {
@@ -48,7 +48,7 @@ class OrderContainer extends React.Component{
 
     render(){
 
-        const orderTypes = ["", "Receive", "Ship"]
+        const order_types = ["", "Receive", "Ship"]
         console.log(this.props.store)
         return(
             <div>
@@ -72,7 +72,7 @@ class OrderContainer extends React.Component{
                             {...routerProps}
                             order={this.state.currentOrder}
                             skus={this.props.skus}
-                            orderTypes={orderTypes}
+                            order_types={order_types}
                             handleChange={this.handleOnChange}
                             handleSubmit={this.handleSubmit}
                             //redirectToShow={this.handleShoworder}

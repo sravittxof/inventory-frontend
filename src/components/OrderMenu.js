@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 
 const OrderMenu = (props) => {
-    console.log(props)
     return (
         
         <div>
