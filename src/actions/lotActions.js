@@ -10,42 +10,11 @@ export const fetchLots = () => {
     }
 
     return (dispatch) => {
-        dispatch({type: 'START_FETCHING_SKUS'});
-        fetch("http://localhost:3000/skus", configObject)
+        dispatch({type: 'START_FETCHING_LOTS'});
+        fetch("http://localhost:3000/lots", configObject)
         .then(r => r.json())
-        .then(data => dispatch({type: 'FETCH_SKUS', skus: data.data}))
+        //.then(data => console.log(data))
+        .then(data => dispatch({type: 'FETCH_LOTS', lots: data.data}))
         .catch(anyErrors => console.log(anyErrors))
     }
 }
-
-export const createSku = (sku, props) => {
-    const configObject = {
-        method: 'POST',
-        headers: {
-            //"Authorization": `Bearer ${localStorage.jwt}`,
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            sku: sku
-        })
-    }
-
-    let pendingDataFromFetch
-
-    return (dispatch) => {
-        dispatch({type: 'START_CREATING_SKU'});
-        fetch("http://localhost:3000/skus", configObject)
-        .then(response => response.json())
-        .then(data => 
-            pendingDataFromFetch = data )
-        .then(somePromise =>
-            dispatch({type: 'CREATE_SKU', sku: pendingDataFromFetch.data}) )
-        .then(somePromise =>
-            props.history.push(`/skus/${pendingDataFromFetch.data.id}`) )
-    }
-}
-
-// export const redirectAfterCreate = () => {
-//     return {type: 'REDIRECT_AFTER_CREATE', redirectAfterCreate: false}
-// }

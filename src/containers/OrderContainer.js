@@ -8,6 +8,7 @@ import OrderIndex from "../components/OrderIndex"
 import CreateOrder from "../components/CreateOrder"
 import { createOrder, fetchOrders } from "../actions/orderActions";
 import {fetchSkus} from "../actions/skuActions"
+import {fetchLots} from "../actions/lotActions"
 
 class OrderContainer extends React.Component{
 
@@ -82,7 +83,7 @@ class OrderContainer extends React.Component{
             ...this.state, currentOrder: {
                 order_type: "",
                 status: "",
-                items: [],             
+                items: {},             
             }   
         })
     }
@@ -90,10 +91,11 @@ class OrderContainer extends React.Component{
     componentDidMount(){
         this.props.fetchOrders()
         this.props.fetchSkus()
+        this.props.fetchLots()
     }
 
     render(){
-        console.log(this.props)
+        console.log(this.state)
         
         const order_types = ["", "Receive", "Ship"]
         return(
@@ -118,6 +120,7 @@ class OrderContainer extends React.Component{
                             {...routerProps}
                             order={this.state.currentOrder}
                             skus={this.props.skus}
+                            lots={this.props.lots}
                             order_types={order_types}
                             handleChange={this.handleOnChange}
                             handleSubmit={this.handleSubmit}
@@ -135,7 +138,8 @@ const mapStateToProps = (state) => {
      return {
         orders: state.orders,
         skus: state.skus.skus,
-        store: state
+        lots: state.lots.lots,
+        store: state,
     }
     return {store: state}
 }
@@ -145,7 +149,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchOrders: () => dispatch(fetchOrders()),
         createOrder: (order) => dispatch(createOrder(order)),
         fetchSkus: () => dispatch(fetchSkus()),
-        //fetchLots: () => dispatch(fetchLots()),
+        fetchLots: () => dispatch(fetchLots()),
     }
 }
 
