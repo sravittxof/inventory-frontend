@@ -17,7 +17,7 @@ class OrderContainer extends React.Component{
         this.state = { currentOrder: {
             order_type: "",
             order_status: "",
-            items: {},
+            items: [],
             ////exampple items:[ {sku_id: 1, onOrder: true, quantity: 2}, {sku_id: 3, onOrder: true, quantity: 7} ]
             }
         }
@@ -36,44 +36,21 @@ class OrderContainer extends React.Component{
         if(event.target.name === "order_type"){
             this.setState({
                 currentOrder:{
-                ...this.state.currentOrder, [event.target.name]: event.target.value, items: {}
+                ...this.state.currentOrder, [event.target.name]: event.target.value, items: []
                 }
             })
         } else {
-            this.setState({
+            this.setState(prevState => ({
                 currentOrder: {
-                    ...this.state.currentOrder, items: {...this.state.currentOrder.items, [event.target.name]: event.target.value}
+                    ...prevState.currentOrder,
+                    items: [ ...prevState.currentOrder.items.filter(item => item.item_id !== event.target.name), {item_id: event.target.name, quantity: event.target.value} ]
                 }
-            })
+            }))
         }   
     }
 
     /*
-        if(event.target.name === "order_type"){
-            this.setState({
-                currentOrder:{
-                ...this.state.currentOrder, event.target.name: event.target.value, items: []
-                }
-            })
-        } else {
-            this.setState({
-                currentOrder: {
-                    ...this.state.currentOrder, items: {...this.state.currentOrder.items, event.target.name: event.target.value}
-                }
-            })
-        }
 
-        //items: { className: {name: {quantity: quantity}, name: {quantity: quantity}}, className: {name: {quantity: quantity}, name: {quantity: quantity}}   }
-        //{event.target.className.name :  }
-
-        items: {name: quantity, name: quantity }
-
-
-        this.setState({
-            currentOrder:{
-                ...this.state.currentOrder, 
-            }
-        })
     */
 
     handleSubmit = (event) => {
@@ -83,7 +60,7 @@ class OrderContainer extends React.Component{
             ...this.state, currentOrder: {
                 order_type: "",
                 status: "",
-                items: {},             
+                items: [],             
             }   
         })
     }
@@ -124,7 +101,6 @@ class OrderContainer extends React.Component{
                             order_types={order_types}
                             handleChange={this.handleOnChange}
                             handleSubmit={this.handleSubmit}
-                            //redirectToShow={this.handleShoworder}
                         />}
                     />
                 </Switch>

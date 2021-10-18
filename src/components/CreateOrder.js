@@ -1,7 +1,7 @@
 
 const CreateOrder  = (props) => {
 
-    console.log(props)
+    //console.log(props)
 
     const renderSkusOrLots = () => {
         if (props.order.order_type === "Ship"){
