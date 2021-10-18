@@ -5,6 +5,7 @@ import {Switch,
 import { connect } from "react-redux";
 import OrderMenu from "../components/OrderMenu";
 import OrderIndex from "../components/OrderIndex"
+import Order from "../components/Order"
 import CreateOrder from "../components/CreateOrder"
 import { createOrder, fetchOrders } from "../actions/orderActions";
 import {fetchSkus} from "../actions/skuActions"
@@ -55,7 +56,7 @@ class OrderContainer extends React.Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.createOrder(this.state.currentOrder)
+        this.props.createOrder(this.state.currentOrder, this.props)
         this.setState({
             ...this.state, currentOrder: {
                 order_type: "",
@@ -72,7 +73,7 @@ class OrderContainer extends React.Component{
     }
 
     render(){
-        console.log(this.state)
+        console.log(this.props)
         
         const order_types = ["", "Receive", "Ship"]
         return(
@@ -87,7 +88,7 @@ class OrderContainer extends React.Component{
                         exact
                         path={`${this.props.match.path}/`}
                         render={routerProps => <OrderIndex {...routerProps} 
-                        orders={this.props.store.orders.orders}
+                        orders={this.props.orders}
                         /> }
                     />
 
@@ -103,6 +104,14 @@ class OrderContainer extends React.Component{
                             handleSubmit={this.handleSubmit}
                         />}
                     />
+
+                    <Route
+                        exact
+                        path={`${this.props.match.path}/:id`}
+                        render={routerProps => <Order {...routerProps}
+                        order={this.props.orders.find(({id}) => id.toString() === routerProps.match.params.id)}
+                            />}
+                    />
                 </Switch>
 
             </div>
@@ -112,7 +121,7 @@ class OrderContainer extends React.Component{
 
 const mapStateToProps = (state) => {
      return {
-        orders: state.orders,
+        orders: state.orders.orders,
         skus: state.skus.skus,
         lots: state.lots.lots,
         store: state,
@@ -123,7 +132,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: () => dispatch(fetchOrders()),
-        createOrder: (order) => dispatch(createOrder(order)),
+        createOrder: (order, props) => dispatch(createOrder(order, props)),
         fetchSkus: () => dispatch(fetchSkus()),
         fetchLots: () => dispatch(fetchLots()),
     }

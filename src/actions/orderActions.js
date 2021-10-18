@@ -19,7 +19,7 @@ export const fetchOrders = () => {
     }
 }
 
-export const createOrder = order => {
+export const createOrder = (order, props) => {
     const configObject = {
         method: 'POST',
         headers: {
@@ -32,11 +32,16 @@ export const createOrder = order => {
         })
     }
 
+    let pendingDataFromFetch
+
     return (dispatch) => {
         dispatch({type: 'START_CREATING_ORDER'});
         fetch("http://localhost:3000/orders", configObject)
         .then(response => response.json())
-        .then((data) => 
-        dispatch({type: 'CREATE_ORDER', order: data}))
+        .then(data => pendingDataFromFetch = data)
+        .then(somePromise => 
+            dispatch({type: 'CREATE_ORDER', order: pendingDataFromFetch.data}))
+        .then(somePromise => 
+            props.history.push(`/orders/${pendingDataFromFetch.data.id}`) )
     }
 }
