@@ -2,6 +2,7 @@ function orderReducer(
     state = {
         orders: [],
         requesting: false,
+        //redirectToShow: false,
     },
     action
 ){
@@ -33,6 +34,7 @@ function orderReducer(
                 ...state,
                 orders: [...state.orders, action.order],
                 requesting: false,
+                //redirectToShow: true
             }
 
         default:

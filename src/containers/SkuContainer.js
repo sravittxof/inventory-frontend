@@ -30,8 +30,6 @@ class SkuContainer extends React.Component{
         this.props.history.push(`/skus/${this.props.id}`)
     }
 
-    // handleRedirectAfterCreate = () => this.props.history.push(`/skus/${this.props.store.skus.skus.last.id}`)
-
     handleOnChange = (event) => {
         this.setState({
             currentSku: {...this.state.currentSku, [event.target.name]: event.target.value}
@@ -56,15 +54,7 @@ class SkuContainer extends React.Component{
 
  
     render() {
-        //console.log(this.props)
-
-        // if(this.props.store.skus.redirectingAfterCreate && (this.props.location.pathname === '/skus/create')){
-        //     this.handleRedirectAfterCreate()
-        // } else if (this.props.store.skus.redirectingAfterCreate){
-        //      this.props.redirectAfterCreate()
-        // }
         
-
         return (
         <div>
             <div>
@@ -78,7 +68,6 @@ class SkuContainer extends React.Component{
                 path={`${this.props.match.path}/`}
                 render={routerProps => <SkuIndex {...routerProps}
                 skus={this.props.skus}
-                //showSku={this.handleShowSku}
                 />}
             />
 
@@ -89,7 +78,6 @@ class SkuContainer extends React.Component{
                     sku={this.state.currentSku}
                     handleChange={this.handleOnChange}
                     handleSubmit={this.handleSubmit}
-                    //redirectToShow={this.handleShowSku}
                     />}
             />
 

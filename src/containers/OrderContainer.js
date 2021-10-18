@@ -19,7 +19,6 @@ class OrderContainer extends React.Component{
             order_type: "",
             order_status: "",
             items: [],
-            ////exampple items:[ {sku_id: 1, onOrder: true, quantity: 2}, {sku_id: 3, onOrder: true, quantity: 7} ]
             }
         }
     }  
@@ -63,6 +62,10 @@ class OrderContainer extends React.Component{
         console.log(this.props)
         
         const order_types = ["", "Receive", "Ship"]
+        //if (this.props.store.skus.redirectToShow){
+        //    this.props.history.push(`/orders/${pendingDataFromFetch.data.id}`)
+        //}
+
         return(
             <div>
                 <div>
