@@ -39,8 +39,10 @@ export const createOrder = (order, props) => {
         fetch("http://localhost:3000/orders", configObject)
         .then(response => response.json())
         .then(data => pendingDataFromFetch = data)
+        .then(somePromise => console.log(pendingDataFromFetch))
         .then(somePromise => 
             dispatch({type: 'CREATE_ORDER', order: pendingDataFromFetch.data}))
+        .then(somePromise => dispatch(props.fetchLots))
         .then(somePromise => 
             props.history.push(`/orders/${pendingDataFromFetch.data.id}`) )
     }

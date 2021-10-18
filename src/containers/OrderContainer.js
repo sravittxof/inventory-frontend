@@ -25,15 +25,6 @@ class OrderContainer extends React.Component{
     }  
     
     handleOnChange = (event) => {
-        //console.log(event)
-        
-        //exiting, functioning setState
-        // this.setState({
-        //     currentOrder: {
-        //     ...this.state.currentOrder, [event.target.name]: event.target.value
-        //     }
-        // })
-        //begin testing setState
         if(event.target.name === "order_type"){
             this.setState({
                 currentOrder:{
@@ -49,10 +40,6 @@ class OrderContainer extends React.Component{
             }))
         }   
     }
-
-    /*
-
-    */
 
     handleSubmit = (event) => {
         event.preventDefault();
