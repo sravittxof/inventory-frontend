@@ -21,8 +21,9 @@ class SkuContainer extends React.Component{
             currentSku: {
                 name: "",
                 sku_code: "",
-                description: ""
-            }
+                description: "",
+            },
+            likes: []
         }
     }
 
@@ -35,6 +36,28 @@ class SkuContainer extends React.Component{
             currentSku: {...this.state.currentSku, [event.target.name]: event.target.value}
         })
     }
+
+    // handleLike = (event) => {
+    //     if(this.state.likes.includes(event.target.name)){
+    //         this.setState({
+    //             currentSku: {...this.state.currentSku}, 
+    //             likes: [...this.state.likes.filter(id => id != event.target.name)],
+    //         })
+    //     } else {
+    //         this.setState({
+    //             currentSku: {...this.state.currentSku},
+    //             likes: [...this.state.likes, event.target.name]
+    //         })
+    //     }
+    // }
+
+    handleLike = (event) => {
+        this.setState({
+            currentSku: {...this.state.currentSku},
+            likes: this.state.likes.includes(event.target.name) ? [...this.state.likes.filter(id => id!= event.target.name)]: [...this.state.likes, event.target.name],
+        })
+    }
+
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -68,6 +91,8 @@ class SkuContainer extends React.Component{
                 path={`${this.props.match.path}/`}
                 render={routerProps => <SkuIndex {...routerProps}
                 skus={this.props.skus}
+                handleLike={this.handleLike}
+                likes={this.state.likes}
                 />}
             />
 
@@ -77,7 +102,7 @@ class SkuContainer extends React.Component{
                     {...routerProps}
                     sku={this.state.currentSku}
                     handleChange={this.handleOnChange}
-                    handleSubmit={this.handleSubmit}
+                    handleSubmit={this.handleSubmit} 
                     />}
             />
 
@@ -108,3 +133,20 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SkuContainer)
+
+
+
+// /////
+// reduxComonent(action)
+
+// state = []
+
+// reducera(action){
+//     if else
+//     // modify state       
+// }
+
+// dispatch()
+
+// ////
+
