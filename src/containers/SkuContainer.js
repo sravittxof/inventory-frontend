@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Sku from '../components/Sku.js'
 import {fetchSkus} from '../actions/skuActions'
 import {createSku} from '../actions/skuActions'
-// import {redirectAfterCreate} from "../actions/skuActions"
+import {redirectAfterCreate} from "../actions/skuActions"
 import CreateSku from '../components/CreateSku.js'
 import SkuMenu from "../components/SkuMenu.js";
 import SkuIndex from "../components/SkuIndex.js";
@@ -41,7 +41,7 @@ class SkuContainer extends React.Component{
     //     if(this.state.likes.includes(event.target.name)){
     //         this.setState({
     //             currentSku: {...this.state.currentSku}, 
-    //             likes: [...this.state.likes.filter(id => id != event.target.name)],
+    //             likes: [...this.state.likes.filter(id => id !== event.target.name)],
     //         })
     //     } else {
     //         this.setState({
@@ -54,7 +54,7 @@ class SkuContainer extends React.Component{
     handleLike = (event) => {
         this.setState({
             currentSku: {...this.state.currentSku},
-            likes: this.state.likes.includes(event.target.name) ? [...this.state.likes.filter(id => id!= event.target.name)]: [...this.state.likes, event.target.name],
+            likes: this.state.likes.includes(event.target.name) ? [...this.state.likes.filter(id => id!== event.target.name)]: [...this.state.likes, event.target.name],
         })
     }
 
@@ -75,9 +75,19 @@ class SkuContainer extends React.Component{
         this.props.fetchSkus()
     }
 
+    handleRedirect = () => {
+        this.props.history.push(`/skus/${this.props.store.skus.createdSku}`)
+        this.props.redirectAfterCreate()
+    }
+
  
     render() {
-        
+        console.log("Sku Container Rendering, these are its props")
+        console.log(this.props)
+        if (this.props.store.skus.redirectingAfterCreate){
+            this.handleRedirect()
+        }
+
         return (
         <div>
             <div>
@@ -129,6 +139,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createSku: (sku, skuActionProps) => dispatch(createSku(sku, skuActionProps)),
         fetchSkus: () => dispatch(fetchSkus()),
+        redirectAfterCreate: () => dispatch(redirectAfterCreate())
     }
 }
 
