@@ -37,20 +37,6 @@ class SkuContainer extends React.Component{
         })
     }
 
-    // handleLike = (event) => {
-    //     if(this.state.likes.includes(event.target.name)){
-    //         this.setState({
-    //             currentSku: {...this.state.currentSku}, 
-    //             likes: [...this.state.likes.filter(id => id !== event.target.name)],
-    //         })
-    //     } else {
-    //         this.setState({
-    //             currentSku: {...this.state.currentSku},
-    //             likes: [...this.state.likes, event.target.name]
-    //         })
-    //     }
-    // }
-
     handleLike = (event) => {
         this.setState({
             currentSku: {...this.state.currentSku},
