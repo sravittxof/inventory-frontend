@@ -2,7 +2,7 @@ function skuReducer(
     state = {
         skus: [],
         requesting: false,
-        redirectingAfterCreate: false,
+        redirectAfterCreate: false,
         createdSku: 0,
     },
     action
@@ -39,18 +39,11 @@ function skuReducer(
                 createdSku: action.sku.id
             }
 
-
-        case 'START_REDIRECTING_AFTER_CREATE':
-            return {
-                ...state,
-                skus: [...state.skus],
-                redirectingAfterCreate: false
-            }
-
         case 'REDIRECT_AFTER_CREATE':
             return {
                 ...state,
                 skus: [...state.skus],
+                redirectAfterCreate: false
             }
 
         default:

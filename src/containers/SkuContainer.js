@@ -75,18 +75,21 @@ class SkuContainer extends React.Component{
         this.props.fetchSkus()
     }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.store.skus.redirectAfterCreate && (this.props.store.skus.redirectAfterCreate === false)){
+            this.handleRedirect()
+        }
+    }
+
     handleRedirect = () => {
-        this.props.history.push(`/skus/${this.props.store.skus.createdSku}`)
         this.props.redirectAfterCreate()
+        this.props.history.push(`/skus/${this.props.store.skus.createdSku}`)
     }
 
  
     render() {
         console.log("Sku Container Rendering, these are its props")
         console.log(this.props)
-        if (this.props.store.skus.redirectingAfterCreate){
-            this.handleRedirect()
-        }
 
         return (
         <div>
