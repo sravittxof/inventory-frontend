@@ -62,7 +62,7 @@ class SkuContainer extends React.Component{
     }
 
     componentDidUpdate(prevProps){
-        if (prevProps.store.skus.redirectAfterCreate && (this.props.store.skus.redirectAfterCreate === false)){
+        if (this.props.store.skus.redirectAfterCreate && (prevProps.store.skus.redirectAfterCreate === false)){
             this.handleRedirect()
         }
     }

@@ -35,7 +35,7 @@ function skuReducer(
                 ...state,
                 skus: [...state.skus, action.sku],
                 requesting: false,
-                redirectingAfterCreate: true,
+                redirectAfterCreate: true,
                 createdSku: action.sku.id
             }
 
