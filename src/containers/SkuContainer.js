@@ -126,8 +126,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createSku: (sku, skuActionProps) => dispatch(createSku(sku, skuActionProps)),
         fetchSkus: () => dispatch(fetchSkus()),
+        createSku: (sku, skuActionProps) => dispatch(createSku(sku, skuActionProps)),
         redirectAfterCreate: () => dispatch(redirectAfterCreate())
     }
 }
