@@ -7,7 +7,7 @@ import OrderMenu from "../components/OrderMenu";
 import OrderIndex from "../components/OrderIndex"
 import Order from "../components/Order"
 import CreateOrder from "../components/CreateOrder"
-import { createOrder, fetchOrders } from "../actions/orderActions";
+import { createOrder, fetchOrders, redirectAfterCreate } from "../actions/orderActions";
 import {fetchSkus} from "../actions/skuActions"
 import {fetchLots} from "../actions/lotActions"
 
@@ -57,6 +57,18 @@ class OrderContainer extends React.Component{
         this.props.fetchSkus()
         this.props.fetchLots()
     }
+
+    componentDidUpdate(prevProps){
+        if (this.props.store.orders.redirectAfterCreate && (prevProps.store.orders.redirectAfterCreate === false)){
+            this.handleRedirect()
+        }
+    }
+
+    handleRedirect = () => {
+        this.props.redirectAfterCreate()
+        this.props.history.push(`/orders/${this.props.store.orders.createdOrder}`)
+    }
+
 
     render(){
         console.log(this.props)
@@ -125,6 +137,7 @@ const mapDispatchToProps = (dispatch) => {
         createOrder: (order, props) => dispatch(createOrder(order, props)),
         fetchSkus: () => dispatch(fetchSkus()),
         fetchLots: () => dispatch(fetchLots()),
+        redirectAfterCreate: () => dispatch(redirectAfterCreate())
     }
 }
 
