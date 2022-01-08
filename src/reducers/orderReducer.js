@@ -2,7 +2,8 @@ function orderReducer(
     state = {
         orders: [],
         requesting: false,
-        //redirectToShow: false,
+        redirectAfterCreate: false,
+        createdOrder: 0,
     },
     action
 ){
@@ -21,7 +22,7 @@ function orderReducer(
                 requesting: false,
             }
         
-        case 'START_CREATING_ORDERS':
+        case 'START_CREATING_ORDER':
             return {
                 ...state,
                 orders: [...state.orders],
@@ -32,9 +33,17 @@ function orderReducer(
         case 'CREATE_ORDER':
             return {
                 ...state,
-                orders: [...state.orders, action.order],
+                orders: [...state.orders, action.order.data],
                 requesting: false,
-                //redirectToShow: true
+                redirectAfterCreate: true,
+                createdOrder: action.order.data.id
+            }
+
+        case 'REDIRECT_AFTER_CREATE':
+            return {
+                ...state,
+                orders: [...state.orders],
+                redirectAfterCreate: false
             }
 
         default:
