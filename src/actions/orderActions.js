@@ -38,12 +38,15 @@ export const createOrder = (order, props) => {
         dispatch({type: 'START_CREATING_ORDER'});
         fetch("http://localhost:3000/orders", configObject)
         .then(response => response.json())
-        .then(data => pendingDataFromFetch = data)
-        .then(somePromise => console.log(pendingDataFromFetch))
-        .then(somePromise => 
-            dispatch({type: 'CREATE_ORDER', order: pendingDataFromFetch.data}))
-        .then(somePromise => dispatch(props.fetchLots))
-        .then(somePromise => 
-            props.history.push(`/orders/${pendingDataFromFetch.data.id}`) )
+        .then(data =>
+            //console.log(data)
+            dispatch({type: 'CREATE_ORDER', order: data })
+            )
+    }
+}
+
+export const redirectAfterCreate = () => {
+    return (dispatch) => {
+        dispatch({type: 'REDIRECT_AFTER_CREATE'})
     }
 }
