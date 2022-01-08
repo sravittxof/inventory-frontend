@@ -8,7 +8,6 @@ const SkuIndex = (props) => {
             <p>{sku.attributes.description}</p> */}
             <br></br>
             <br></br>
-            <button name={sku.id} onClick={props.handleLike}>{props.likes.find(like => like === sku.id) ? "liked" : "Like"}</button>
         </div>
         )
     return (skusMap)

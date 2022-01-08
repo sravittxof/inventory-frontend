@@ -23,7 +23,6 @@ class SkuContainer extends React.Component{
                 sku_code: "",
                 description: "",
             },
-            likes: []
         }
     }
 
@@ -36,14 +35,6 @@ class SkuContainer extends React.Component{
             currentSku: {...this.state.currentSku, [event.target.name]: event.target.value}
         })
     }
-
-    handleLike = (event) => {
-        this.setState({
-            currentSku: {...this.state.currentSku},
-            likes: this.state.likes.includes(event.target.name) ? [...this.state.likes.filter(id => id!== event.target.name)]: [...this.state.likes, event.target.name],
-        })
-    }
-
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -72,9 +63,8 @@ class SkuContainer extends React.Component{
         this.props.history.push(`/skus/${this.props.store.skus.createdSku}`)
     }
 
- 
+
     render() {
-        console.log("Sku Container Rendering, these are its props")
         console.log(this.props)
 
         return (
@@ -90,8 +80,6 @@ class SkuContainer extends React.Component{
                 path={`${this.props.match.path}/`}
                 render={routerProps => <SkuIndex {...routerProps}
                 skus={this.props.skus}
-                handleLike={this.handleLike}
-                likes={this.state.likes}
                 />}
             />
 
