@@ -6,15 +6,15 @@ const Sku = (props) => {
                 <br></br>
                 <br></br>
             <h2>Name</h2>
-                <p>{props.sku.attributes.name}</p>
+                <p>{props.sku.name}</p>
                 <br></br>
                 <br></br>
             <h2>SKU Code</h2>
-                <p>{props.sku.attributes.sku_code}</p>
+                <p>{props.sku.skuCode}</p>
                 <br></br>
                 <br></br>
             <h2>description</h2>
-                <p>{props.sku.attributes.description}</p>
+                <p>{props.sku.description}</p>
                 <br></br>
                 <br></br>
         </div>

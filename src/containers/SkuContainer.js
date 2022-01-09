@@ -20,7 +20,7 @@ class SkuContainer extends React.Component{
         this.state = {
             currentSku: {
                 name: "",
-                sku_code: "",
+                skuCode: "",
                 description: "",
             },
         }
@@ -42,7 +42,7 @@ class SkuContainer extends React.Component{
         this.setState({
             ...this.state,
             currentSku: {
-                name: "", sku_code: "", description: ""
+                name: "", skuCode: "", description: ""
             }
         })
     }
