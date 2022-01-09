@@ -13,7 +13,6 @@ export const fetchSkus = () => {
         dispatch({type: 'START_FETCHING_SKUS'});
         fetch("http://localhost:3000/skus", configObject)
         .then(r => r.json())
-        //.then(data => console.log(data))
         .then(data => dispatch({type: 'FETCH_SKUS', skus: data}))
         .catch(anyErrors => console.log(anyErrors))
     }
@@ -37,7 +36,7 @@ export const createSku = (sku, props) => {
         fetch("http://localhost:3000/skus", configObject)
         .then(response => response.json())
         .then(data =>
-            dispatch({type: 'CREATE_SKU', sku: data.data}) )
+            dispatch({type: 'CREATE_SKU', sku: data}) )
     }
 }
 

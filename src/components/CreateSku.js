@@ -15,7 +15,7 @@ const CreateSku  = (props) => {
                 <br></br>
                 <input
                     type="text"
-                    name="sku_code"
+                    name="skuCode"
                     placeholder="Enter New Sku Code"
                     value={props.skuCode}
                     onChange={props.handleChange}
