@@ -15,7 +15,7 @@ const CreateOrder  = (props) => {
 
     const skusMap = props.skus.map((sku, idx) => 
         <div key={idx}> 
-            {sku.attributes.name}
+            {sku.name}
             <div>
             <input
                 type="text"
@@ -31,13 +31,13 @@ const CreateOrder  = (props) => {
     )   
 
     const skusMapLotsNested = props.skus.map((sku, idx) => 
-        <div key={idx} value={sku.attributes.name}>
-            <h3>{sku.attributes.name}</h3>
-            {sku.relationships.lots.data.map((lot, idx) => 
+        <div key={idx} value={sku.name}>
+            <h3>{sku.name}</h3>
+            {sku.lots.map((lot, idx) => 
                 <div key={idx}>
-                    Lot Number: {props.lots.find(lotFind => lotFind.id === lot.id).attributes.lot_number}
+                    Lot Number: {props.lots.find(lotFind => lotFind.id === String(lot.id)).attributes.lot_number}
                     <br></br>
-                    Quantity Available: {props.lots.find(lotFind => lotFind.id === lot.id).attributes.quantity}
+                    Quantity Available: {props.lots.find(lotFind => lotFind.id === String(lot.id)).attributes.quantity}
                     <div>
                     <br></br>
                     <input
