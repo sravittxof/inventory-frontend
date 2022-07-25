@@ -10,11 +10,7 @@ const OrderIndex = (props) => {
         </div>
     )
     
-    return (
-        <div>
-            { ordersMap }
-        </div>
-    )
+    return (ordersMap)
 }
 
 export default OrderIndex
