@@ -60,6 +60,7 @@ class OrderContainer extends React.Component{
 
     componentDidUpdate(prevProps){
         if (this.props.store.orders.redirectAfterCreate && (prevProps.store.orders.redirectAfterCreate === false)){
+            //this.props.fetchOrders()
             this.handleRedirect()
         }
     }
@@ -111,7 +112,8 @@ class OrderContainer extends React.Component{
                         exact
                         path={`${this.props.match.path}/:id`}
                         render={routerProps => <Order {...routerProps}
-                        order={this.props.orders.find(({id}) => id.toString() === routerProps.match.params.id)}
+                        order={this.props.orders.find( order => order.id === routerProps.match.params.id) }
+                        skus={this.props.skus}
                             />}
                     />
                 </Switch>
