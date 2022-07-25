@@ -32,7 +32,6 @@ export const createOrder = (order, props) => {
         })
     }
 
-    let pendingDataFromFetch
 
     return (dispatch) => {
         dispatch({type: 'START_CREATING_ORDER'});
